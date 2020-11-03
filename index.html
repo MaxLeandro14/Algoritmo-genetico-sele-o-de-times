@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>Algoritmo Génetico</title>
+    <script src="assets/js/jq.js"></script>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .loading{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 80px;
+      }
+      .btn{
+        margin: 0 auto;
+        display: block;
+        margin-top: 60px;
+        padding: 7px 50px;
+        border: none;
+        font-size: 19px;
+        font-family: arial;
+        color: #52691a;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .resultado{
+          display: block;
+          max-width: 350px;
+          text-align: center;
+          margin: 35px auto;
+          border: 1px solid #7dad09;
+          padding: 12px 11px;
+          font-family: arial;
+          border-radius: 6px;
+      }
+      .lista {
+        display: block;
+        margin: 30px 0px;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <div style="background: #7dad09; padding: 30px; color: #fff; font-family: arial;">
+              <h2 style="text-align: center;">Algoritmo Genético</h2>
+            </div>
+            <hr>
+            <form action="" method="post">
+                <hr>
+                <button id="start" class="btn btn-primary btn-lg" role="button" type="button">Calcular</button>
+            </form>
+
+            <div id="loading" class="loading" style="display: none"><img style="max-width: 50px;" src="assets/unnamed.gif"></div>
+
+            <div id="resultado" class="resultado" style="display: none;">
+
+                <h2 style="color: #7dad09; margin: 10px 0px;">Resultado</h2>
+
+                
+                
+
+                <h3 style="background: #9e9c9c; padding: 4px 0px; color: #fff;">Time <br></strong>
+                  <div id="nota" style="font-size: 14px;"></div>
+                </h3>
+
+                <span class="lista">
+                  <strong>Goleiro</strong>
+                  <div id="goleiro"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Volante</strong>
+                <div id="volante"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Volante</strong>
+                <div id="volante2"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Meia</strong>
+                <div id="meia"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Meia</strong>
+                <div id="meia2"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Atacante</strong>
+                <div id="atacante"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Atacante</strong>
+                <div id="atacante2"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Zagueiro</strong>
+                <div id="zagueiro"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Zagueiro</strong>
+                <div id="zagueiro2"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Lateral</strong>
+                <div id="lateral"></div>
+                </span>
+
+                <span class="lista">
+                <strong>Lateral</strong>
+                <div id="lateral2"></div>
+                </span>
+                <hr>
+                <span class="lista" style="margin: 10px 0px;">
+                  <strong>Tempo de processamento</strong>
+                <div id="tempo"></div>
+                </span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $( "#start" ).click(function(e) {
+
+            var recrut = $("#recrutar").val();
+        
+              $.ajax({
+              url:'./melhorJogador.php',
+              method:"POST",
+              data:{},
+              beforeSend: function() {
+                $("#start").hide();
+                $(".loading").show();
+              },
+              success:function(data){
+                $(".loading").hide();
+
+                var dados = JSON.parse(data);
+                console.log(dados);
+                
+
+                $( "#nota" ).append( dados.notaTime.toFixed(1) );
+                $( "#goleiro" ).append( dados.jogadores[0].nome );
+                $( "#volante" ).append( dados.jogadores[1].nome );
+                $( "#volante2" ).append( dados.jogadores[2].nome );
+                $( "#meia" ).append( dados.jogadores[3].nome );
+                $( "#meia2" ).append( dados.jogadores[4].nome );
+                $( "#atacante" ).append( dados.jogadores[5].nome );
+                $( "#atacante2" ).append( dados.jogadores[6].nome );
+                $( "#zagueiro" ).append( dados.jogadores[7].nome );
+                $( "#zagueiro2" ).append( dados.jogadores[8].nome );
+                $( "#lateral" ).append( dados.jogadores[9].nome );
+                $( "#lateral2" ).append( dados.jogadores[10].nome );
+                $( "#tempo" ).append( dados.tempoProcessamento );
+
+                $("#resultado").show();
+
+                
+              }
+            })
+
+        })
+    </script>
+</body>
+</html>
